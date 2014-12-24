@@ -8,5 +8,6 @@ $privfnc = array("sh", "msg","_ban","_unban");
 $user = "leet";
 $pass = "dummypass";
 
+$userspm = array();
 $banned = array($user);
 ?>
