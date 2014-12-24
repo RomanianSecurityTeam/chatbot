@@ -1,1 +1,2 @@
-screen -S bot php /var/www/bot/start.php
+#!/bin/bash
+screen -S bot php start.php
