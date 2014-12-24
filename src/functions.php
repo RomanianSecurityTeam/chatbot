@@ -49,6 +49,14 @@ function message($cli) {
 }
 
 
+function ip_details($ip) {
+    $json = file_get_contents("http://ipinfo.io/{$ip}");
+    $details = json_decode($json);
+    return $details;
+}
+
+
+
 
 function short_url($url, $key, $uid, $domain = 'adf.ly', $advert_type = 'int')
 {
