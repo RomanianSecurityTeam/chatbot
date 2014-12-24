@@ -20,6 +20,7 @@ Available commands :
 - passwd_generate <1/2/3> - Generates a password based on length and strength (1 - low , 2 - medium , 3 - hard)
 - ip <ip> - Return informations about ip (Note : currently supports only ip , no domains)
 - _banned - List banned user
+
 Coming soon :
 - Commands on access levels
 - Custom Sh commands
