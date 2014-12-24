@@ -22,7 +22,7 @@ function parse_child($post) {
     $userid = gb("userID=\"","\"",$post);
     if(empty($message)){return false;}
     echo $user.":  ".$message."\n";
-    if(in_array($user,$banned)){return false;
+    if(in_array($user,$banned)){return false;}
     if($cli[0][0] == "/") $cli[0][0] = "C";
     $cli = explode(" ",$message,2);
     if(in_array($cli[0],$pubfnc)){
