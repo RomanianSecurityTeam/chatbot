@@ -16,12 +16,13 @@ function parse($raw) {
 }
 
 function parse_child($post) {
-    global $pubfnc,$privfnc,$users;
+    global $pubfnc,$privfnc,$users,$banned;
     $message = gb("<text><![CDATA[","]]",$post);
     $user = gb("<username><![CDATA[","]]",$post);
     $userid = gb("userID=\"","\"",$post);
     if(empty($message)){return false;}
     echo $user.":  ".$message."\n";
+    if(in_array($user,$banned)){return false;}
     $cli = explode(" ",$message,2);
     if(in_array($cli[0],$pubfnc)){
       return @call_user_func($cli[0],$cli[1],$user);  
@@ -80,5 +81,31 @@ function generateRandomString($length) {
     return $randomString;
 }
 
+function _ban( $cli, $user ) {
+	global $users, $banned;
+		if( in_array( $cli, $users ) ) {
+			if( !in_array( $cli, $banned ) ) {
+				$banned[] = $cli;
+				return "$cli got banned";
+				}
+			}
+		return "User is not online or is in baned users list";
+	}
+		
+function _unban( $cli, $user ) {
+	global $banned;
+		if(in_array( $cli, $banned ) ) {
+			$banned =  array_merge( array_diff( $banned, array( $cli ) ) );
+			return "user $cli is unbanned";
+			}
+		return "user is not banned";
+				
+		}
+function _banned( $cli, $user ) {
+		global $banned;
+		foreach ( $banned as $ban ) 
+			$txt.=$ban."\n";
 
+		return "banned users are: $txt";
+		}
 ?>
