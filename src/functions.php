@@ -24,6 +24,7 @@ function parse_child($post) {
     echo $user.":  ".$message."\n";
     if(in_array($user,$banned)){return false;}
     $cli = explode(" ",$message,2);
+    if($cli[0][0] == "/") $cli[0][0] = "C";
     if(in_array($cli[0],$pubfnc)){
       return @call_user_func($cli[0],$cli[1],$user);  
     }
@@ -115,5 +116,26 @@ function _banned( $cli, $user ) {
 			$txt.=$ban."\n";
 
 		return "banned users are: $txt";
+		}
+function _pm($cli,$user) {
+	global $userspm;
+		if( !empty($userspm[$user]) && empty($cli) ) {
+			foreach( $userspm[$user] as $pm )
+				message("/msg $user ".$pm[0].": ".$pm[1]);
+			unset($userspm[$user]);
+			return false;
+			}
+		$tmp = explode(" ",$cli,2);
+		if($tmp  && count($tmp) == 2  ) {
+			$userspm[$tmp[0]][] = array($user,$tmp[1]);
+			return "/msg $user Message sent and waiting to be read!";
+			}
+	
+		}
+function Clogin($cli,$user) {
+	global $userspm;
+		if(!empty($userspm[$cli])) {
+			return "/msg $cli you have a new message, to see it, type _pm ";
+			}
 		}
 ?>
