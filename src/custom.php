@@ -21,6 +21,68 @@ function whois($domain) {
         return ("Mofo, check yo domain and hit the ducking enter");		    }
 }
 
+function ip($ip) {
+	
+	
+        if($ip) {
+
+        $details = ip_details($ip);
+        // Prelucram datele din $details
+
+        $delimiter = " / ";
+
+        $coords_raw = $details->loc;
+
+        $coords = explode(",", $coords_raw );
+
+        $show_ip = "IP : [color=green][b]" . $ip . "[/b][/color]";
+
+
+        $show_city = "City : [color=yellow][b]" . $details->city . "[/b][/color]";
+
+        $show_country = "Country : [color=red][b]" . $details->country . "[/b][/color]";
+
+        $show_region = "Region : [color=teal][b]" . $details->region . "[/b][/color]";
+
+        $show_hostname = "Hostname : [color=fuchsia][b]" . $details->hostname . "[/b][/color]";
+
+        $show_postal = "Postal : [color=aqua][b]" . $details->postal . "[/b][/color]";
+
+        $show_lat = "Latitude : [color=orange][b]" . $coords[0] . "[/b][/color]";
+
+        $show_long = "Longitude : [color=orange][b]" . $coords[1] . "[/b][/color]";
+
+        $show_coords = $show_lat . $delimiter . $show_long;
+
+
+        if(!$coords[0] && !$coords[1]) {
+        $show_coords = "[color=orange][b]No coords found![/b][/color]";
+        }
+        if(!$details->postal) {
+        $show_postal = "[color=aqua][b]No postal code found![/b][/color]";
+        }
+        if(!$details->city) {
+        $show_city = "[color=yellow][b]No city found![/b][/color]";
+        }
+        if(!$details->country) {
+        $show_country = "[color=red][b]No country found![/b][/color]";
+        }
+        if(!$details->region) {
+        $show_region = "[color=teal][b]No region found![/b][/color]";
+        }
+        if(!$details->hostname) {
+        $show_hostname = "[color=fuchsia][b]No hostname found![/b][/color]";
+        }
+
+        //Le afisam cu return
+
+        return ( $show_ip . $delimiter . $show_city . $delimiter . $show_country . $delimiter . $show_region . $delimiter . $show_postal . $delimiter . $show_hostname . $delimiter . $show_coords);
+        }
+	
+	
+}
+
+
 function ping($ip){
 
 	$result = array();
