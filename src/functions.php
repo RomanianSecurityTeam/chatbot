@@ -31,13 +31,13 @@ function parse_child($post)
         return false;
     }
     $cli = explode(" ", $message, 2);
-    if ($cli[0][0] == "/") $cli[0][0] = "C";
-    if (in_array($cli[0], $pubfnc)) {
-        return @call_user_func($cli[0], $cli[1], $user);
+
+    if (isset($pubfnc[$cli[0]])) {
+        return @call_user_func($pubfnc[$cli[0]], $cli[1], $user);
     }
 
-    if (in_array($cli[0], $privfnc) && admin($user)) {
-        return @call_user_func($cli[0], $cli[1], $user);
+    if (isset($privfnc[$cli[0]]) && admin($user)) {
+        return @call_user_func($privfnc[$cli[0]], $cli[1], $user);
     }
 }
 
@@ -99,7 +99,7 @@ function generateRandomString($length)
     return $randomString;
 }
 
-function _ban($cli, $user)
+function ban($cli, $user)
 {
     global $users, $banned;
     if (in_array($cli, $users)) {
@@ -111,7 +111,7 @@ function _ban($cli, $user)
     return "/msg $user User is not online or is in baned users list";
 }
 
-function _unban($cli, $user)
+function unban($cli, $user)
 {
     global $banned;
     if (in_array($cli, $banned)) {
@@ -122,7 +122,7 @@ function _unban($cli, $user)
 
 }
 
-function _banned($cli, $user)
+function list_banned($cli, $user)
 {
     global $banned;
     foreach ($banned as $ban)
@@ -131,7 +131,7 @@ function _banned($cli, $user)
     return "/msg $user banned users are: $txt";
 }
 
-function _pm($cli, $user)
+function pm($cli, $user)
 {
     global $userspm;
     if (!empty($userspm[$user]) && empty($cli)) {
