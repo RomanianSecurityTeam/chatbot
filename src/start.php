@@ -8,21 +8,21 @@ login($user, $pass);
 
 $raw = getraw($user);
 
-if(banned($raw)) {
+if (banned($raw)) {
     die("banned");
 }
 
 $users = getusers($raw);
 $lastid = getlastid($raw);
-while(!banned($raw)) {
-    $raw = getraw($user,$lastid);
+while (!banned($raw)) {
+    $raw = getraw($user, $lastid);
     $users = getusers($raw);
     $a = getlastid($raw);
-    if(!empty($a)) {
+    if (!empty($a)) {
         $lastid = $a;
     }
     parse($raw);
     sleep(2);
 }
-    die("loop ended");
+die("loop ended");
 ?>

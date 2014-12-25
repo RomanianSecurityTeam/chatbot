@@ -1,86 +1,95 @@
 <?php
-function gb($s,$e,$h) {
-    @$h = explode($s,$h);
-    @$h = explode($e,$h[1])[0];
+function gb($s, $e, $h)
+{
+    @$h = explode($s, $h);
+    @$h = explode($e, $h[1])[0];
     return $h;
 }
 
-function parse($raw) {
-    $posts = gb("<messages>","</messages>",$raw);
-    $posts = explode("</message>",$posts);
-    foreach($posts as $post) {
+function parse($raw)
+{
+    $posts = gb("<messages>", "</messages>", $raw);
+    $posts = explode("</message>", $posts);
+    foreach ($posts as $post) {
         $txt = parse_child($post);
         message($txt);
     }
     return true;
 }
 
-function parse_child($post) {
-    global $pubfnc,$privfnc,$users,$banned;
-    $message = gb("<text><![CDATA[","]]",$post);
-    $user = gb("<username><![CDATA[","]]",$post);
-    $userid = gb("userID=\"","\"",$post);
-    if(empty($message)){return false;}
-    echo $user.":  ".$message."\n";
-    if(in_array($user,$banned)){return false;}
-    $cli = explode(" ",$message,2);
-    if($cli[0][0] == "/") $cli[0][0] = "C";
-    if(in_array($cli[0],$pubfnc)){
-      return @call_user_func($cli[0],$cli[1],$user);  
+function parse_child($post)
+{
+    global $pubfnc, $privfnc, $users, $banned;
+    $message = gb("<text><![CDATA[", "]]", $post);
+    $user = gb("<username><![CDATA[", "]]", $post);
+    $userid = gb("userID=\"", "\"", $post);
+    if (empty($message)) {
+        return false;
+    }
+    echo $user . ":  " . $message . "\n";
+    if (in_array($user, $banned)) {
+        return false;
+    }
+    $cli = explode(" ", $message, 2);
+    if ($cli[0][0] == "/") $cli[0][0] = "C";
+    if (in_array($cli[0], $pubfnc)) {
+        return @call_user_func($cli[0], $cli[1], $user);
     }
 
-    if(in_array($cli[0],$privfnc) && admin($user)){
-      return @call_user_func($cli[0],$cli[1],$user);
+    if (in_array($cli[0], $privfnc) && admin($user)) {
+        return @call_user_func($cli[0], $cli[1], $user);
     }
 }
 
-function admin($user) {
+function admin($user)
+{
     global $admin;
     return in_array($user, $admin);
 }
 
-function message($cli) {
+function message($cli)
+{
     global $user;
-    if(!empty($cli)){
-      if(strlen($cli)>100){
-        $cli = sprunge(urlencode($cli));
+    if (!empty($cli)) {
+        if (strlen($cli) > 100) {
+            $cli = sprunge(urlencode($cli));
         }
-    postraw($user,$cli);
-  }
+        postraw($user, $cli);
+    }
 }
 
 
-function ip_details($ip) {
+function ip_details($ip)
+{
     $json = file_get_contents("http://ipinfo.io/{$ip}");
     $details = json_decode($json);
     return $details;
 }
 
 
-
-
 function short_url($url, $key, $uid, $domain = 'adf.ly', $advert_type = 'int')
 {
-  // base api url
-  $api = 'http://api.adf.ly/api.php?';
+    // base api url
+    $api = 'http://api.adf.ly/api.php?';
 
-  // api queries
-  $query = array(
-    'key' => $key,
-    'uid' => $uid,
-    'advert_type' => $advert_type,
-    'domain' => $domain,
-    'url' => $url
-  );
+    // api queries
+    $query = array(
+        'key' => $key,
+        'uid' => $uid,
+        'advert_type' => $advert_type,
+        'domain' => $domain,
+        'url' => $url
+    );
 
-  // full api url with query string
-  $api = $api . http_build_query($query);
-  // get data
-  if ($data = file_get_contents($api))
-    return $data;
+    // full api url with query string
+    $api = $api . http_build_query($query);
+    // get data
+    if ($data = file_get_contents($api))
+        return $data;
 }
 
-function generateRandomString($length) {
+function generateRandomString($length)
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -90,52 +99,61 @@ function generateRandomString($length) {
     return $randomString;
 }
 
-function _ban( $cli, $user ) {
-	global $users, $banned;
-		if( in_array( $cli, $users ) ) {
-			if( !in_array( $cli, $banned ) ) {
-				$banned[] = $cli;
-				return "$cli got banned";
-				}
-			}
-		return "User is not online or is in baned users list";
-	}
-		
-function _unban( $cli, $user ) {
-	global $banned;
-		if(in_array( $cli, $banned ) ) {
-			$banned =  array_merge( array_diff( $banned, array( $cli ) ) );
-			return "user $cli is unbanned";
-			}
-		return "user is not banned";
-				
-		}
-function _banned( $cli, $user ) {
-		global $banned;
-		foreach ( $banned as $ban ) 
-			$txt.=$ban."\n";
+function _ban($cli, $user)
+{
+    global $users, $banned;
+    if (in_array($cli, $users)) {
+        if (!in_array($cli, $banned)) {
+            $banned[] = $cli;
+            return "$cli got banned";
+        }
+    }
+    return "User is not online or is in baned users list";
+}
 
-		return "banned users are: $txt";
-		}
-function _pm($cli,$user) {
-	global $userspm;
-		if( !empty($userspm[$user]) && empty($cli) ) {
-			foreach( $userspm[$user] as $pm )
-				message("/msg $user ".$pm[0].": ".$pm[1]);
-			unset($userspm[$user]);
-			return false;
-			}
-		$tmp = explode(" ",$cli,2);
-		if($tmp  && count($tmp) == 2  ) {
-			$userspm[$tmp[0]][] = array($user,$tmp[1]);
-			return "/msg $user Message sent and waiting to be read!";
-			}
-	
-		}
-function Clogin($cli,$user) {
-	global $userspm;
-		if(!empty($userspm[$cli])) {
-			return "/msg $cli you have a new message, to see it, type _pm ";
-			}
-		}
+function _unban($cli, $user)
+{
+    global $banned;
+    if (in_array($cli, $banned)) {
+        $banned = array_merge(array_diff($banned, array($cli)));
+        return "user $cli is unbanned";
+    }
+    return "user is not banned";
+
+}
+
+function _banned($cli, $user)
+{
+    global $banned;
+    foreach ($banned as $ban)
+        $txt .= $ban . "\n";
+
+    return "banned users are: $txt";
+}
+
+function _pm($cli, $user)
+{
+    global $userspm;
+    if (!empty($userspm[$user]) && empty($cli)) {
+        foreach ($userspm[$user] as $pm)
+            message("/msg $user " . $pm[0] . ": " . $pm[1]);
+        unset($userspm[$user]);
+        return false;
+    }
+    $tmp = explode(" ", $cli, 2);
+    if ($tmp && count($tmp) == 2) {
+        $userspm[$tmp[0]][] = array($user, $tmp[1]);
+        return "/msg $user Message sent and waiting to be read!";
+    }
+
+}
+
+function Clogin($cli, $user)
+{
+    global $userspm;
+    if (!empty($userspm[$cli])) {
+        return "/msg $cli you have a new message, to see it, type _pm ";
+    }
+}
+
 ?>
