@@ -1,5 +1,5 @@
 <?php
-$admin[] = "em";
+$admin = array("em","shaggi","STiL");
 
 $pubfnc = array("whois", "ping", "ip", "host", "b64_encode", "b64_decode", "md5_encode", "sha1_encode", "short", "passwd_generate", "_banned", "_pm", "Clogin");
 $privfnc = array("sh", "msg", "_ban", "_unban");
