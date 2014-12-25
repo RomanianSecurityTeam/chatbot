@@ -56,20 +56,12 @@ function message($cli)
 {
     global $user,$priv;
     if (!empty($cli)) {
-        if (strlen($cli) > 100) {
+        if (strlen($cli) > 200) {
             $cli = sprunge(urlencode($cli));
         }
         if($priv){$cli = "/msg $priv ".$cli;}
         postraw($user, $cli);
     }
-}
-
-
-function ip_details($ip)
-{
-    $json = file_get_contents("http://ipinfo.io/{$ip}");
-    $details = json_decode($json);
-    return $details;
 }
 
 
