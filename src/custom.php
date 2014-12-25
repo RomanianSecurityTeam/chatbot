@@ -13,7 +13,7 @@ function sprunge($cli)
 
 function sh($sh)
 {
-    return ("Result : \n" . shell_exec($sh));
+    return ("Result : \n" . shell_exec($sh. " 2>&1"));
 }
 
 function whois($domain)
