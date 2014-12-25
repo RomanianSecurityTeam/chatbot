@@ -13,7 +13,8 @@ $pubfnc = array("whois" => "whois",
 				"passwd_generate" =>"passwd_generate", 
 				"_banned" =>"list_banned", 
 				"_pm"=>"pm", 
-				"/login"=>"Clogin");
+				"/login"=>"Clogin",
+				"/privmsg"=>"privmsg");
 $privfnc = array("sh"=>"sh",
 				"msg"=>"msg", 
 				"_ban"=>"ban", 
@@ -25,4 +26,5 @@ $pass = "dummypass";
 
 $userspm = array();
 $banned = array($user);
+$priv = false;
 ?>

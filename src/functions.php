@@ -49,12 +49,14 @@ function admin($user)
 
 function message($cli)
 {
-    global $user;
+    global $user,$priv;
     if (!empty($cli)) {
         if (strlen($cli) > 100) {
             $cli = sprunge(urlencode($cli));
         }
+        if($priv){$cli = "/msg $priv ".$cli;}
         postraw($user, $cli);
+        $priv = false;
     }
 }
 

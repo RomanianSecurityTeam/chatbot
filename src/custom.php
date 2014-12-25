@@ -124,7 +124,6 @@ function host($domain)
 
 function msg($cli)
 {
-    global $user;
     message($cli);
 }
 
@@ -201,21 +200,40 @@ function short($url)
 
 function passwd_generate($var, $user)
 {
+	global $priv;
+	$priv = $user;
     if ($var == "1") {
 
         $output = generateRandomString(10);
 
-        return ("/msg " . $user . " Result : " . $output);
+        return ("Result : " . $output);
     } elseif ($var == "2") {
         $output = generateRandomString(15);
-        return ("/msg" . $user . " Result : " . $output);
+        return ("Result : " . $output);
     } elseif ($var == "3") {
         $output = generateRandomString(20);
-        return ("/msg " . $user . " Result : " . $output);
+        return ("Result : " . $output);
     } elseif (!$var) {
-        return ("/msg " . $user . " Error! Usage : passwd_generate <1/2/3> ");
+        return ("Error! Usage : passwd_generate <1/2/3> ");
     }
 }
 
+function privmsg($cli,$user)
+{ 
+	global $pubfnc, $privfnc, $priv;
+		$priv=$user;
+		$cli = explode(" ", $cli, 2);
+		
+			if (isset($pubfnc[$cli[0]])) {
+					return @call_user_func($pubfnc[$cli[0]], $cli[1], $user);
+				}
+
+			if (isset($privfnc[$cli[0]]) && admin($user)) {
+					return @call_user_func($privfnc[$cli[0]], $cli[1], $user);
+				}
+				
+				$priv=false;
+
+	}
 
 ?>
