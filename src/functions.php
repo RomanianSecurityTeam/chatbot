@@ -19,7 +19,8 @@ function parse($raw)
 
 function parse_child($post)
 {
-    global $pubfnc, $privfnc, $users, $banned;
+    global $pubfnc, $privfnc, $users, $banned,$chatevents,$priv;
+		$priv = false;
     $message = gb("<text><![CDATA[", "]]", $post);
     $user = gb("<username><![CDATA[", "]]", $post);
     $userid = gb("userID=\"", "\"", $post);
@@ -39,6 +40,10 @@ function parse_child($post)
     if (isset($privfnc[$cli[0]]) && admin($user)) {
         return @call_user_func($privfnc[$cli[0]], $cli[1], $user);
     }
+    
+    if (isset($chatevents[$cli[0]])) {
+        return @call_user_func($chatevents[$cli[0]], $cli[1], $user);
+    }
 }
 
 function admin($user)
@@ -56,7 +61,6 @@ function message($cli)
         }
         if($priv){$cli = "/msg $priv ".$cli;}
         postraw($user, $cli);
-        $priv = false;
     }
 }
 
@@ -135,17 +139,19 @@ function list_banned($cli, $user)
 
 function pm($cli, $user)
 {
-    global $userspm;
+	global $priv, $userspm;
+	$priv = $user;
+	
     if (!empty($userspm[$user]) && empty($cli)) {
         foreach ($userspm[$user] as $pm)
-            message("/msg $user " . $pm[0] . ": " . $pm[1]);
+            message($pm[0] . ": " . $pm[1]);
         unset($userspm[$user]);
         return false;
     }
     $tmp = explode(" ", $cli, 2);
     if ($tmp && count($tmp) == 2) {
         $userspm[$tmp[0]][] = array($user, $tmp[1]);
-        return "/msg $user Message sent and waiting to be read!";
+        return "Message sent and waiting to be read!";
     }
 
 }
@@ -153,8 +159,9 @@ function pm($cli, $user)
 function Clogin($cli, $user)
 {
     global $userspm;
+    $priv = $user;
     if (!empty($userspm[$cli])) {
-        return "/msg $cli you have a new message, to see it, type _pm ";
+        return "you have a new message, to see it, type _pm ";
     }
 }
 
