@@ -105,10 +105,10 @@ function _ban($cli, $user)
     if (in_array($cli, $users)) {
         if (!in_array($cli, $banned)) {
             $banned[] = $cli;
-            return "$cli got banned";
+            return "/msg $user $cli got banned";
         }
     }
-    return "User is not online or is in baned users list";
+    return "/msg $user User is not online or is in baned users list";
 }
 
 function _unban($cli, $user)
@@ -116,9 +116,9 @@ function _unban($cli, $user)
     global $banned;
     if (in_array($cli, $banned)) {
         $banned = array_merge(array_diff($banned, array($cli)));
-        return "user $cli is unbanned";
+        return "/msg $user user $cli is unbanned";
     }
-    return "user is not banned";
+    return "/msg $user user is not banned";
 
 }
 
@@ -128,7 +128,7 @@ function _banned($cli, $user)
     foreach ($banned as $ban)
         $txt .= $ban . "\n";
 
-    return "banned users are: $txt";
+    return "/msg $user banned users are: $txt";
 }
 
 function _pm($cli, $user)
