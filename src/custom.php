@@ -79,32 +79,25 @@ function msg($cli)
     message($cli);
 }
 
-function b64_encode($code)
-{
+function b64_function($cli,$user) {
+ 
+	$cli = explode(" ",$cli,2);
+	$option = $cli[0];
+	$string = $cli[1];
 
-    $time = microtime(1);
-    for ($i = 0; $i < 100000; $i++) {
-        base64_encode($code);
-    }
-    $final = microtime(1) - $time;
-    $c = number_format($final, 4);
-
-    return ("Result:(Encrypted in " . $c . " seconds) \n" . base64_encode($code));
-}
-
-function b64_decode($code)
-{
-
-    $time = microtime(1);
-    for ($i = 0; $i < 100000; $i++) {
-        base64_decode($code);
-    }
-    $final = microtime(1) - $time;
-    $c = number_format($final, 4);
-
-
-    return ("Result:(Decrypted in " . $c . " seconds) \n" . base64_decode($code));
-}
+	 switch($option){
+		case "encode":
+	 		$outputs = base64_encode($string);
+		break;
+		case "decode":
+			$outputs = base64_decode($string);
+		break;
+		default:
+			$outputs = "How to use :\n - #b64 encode <string> -> Encode the string given in Base64\n  - #b64 decode <string> -> Decode the string given from Base64";
+		break;
+	    }
+	    return $outputs;
+	}
 
 
 function md5_encode($code)
