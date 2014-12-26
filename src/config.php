@@ -24,12 +24,17 @@ $privfnc = array("sh"=>"sh",
 # Configure chat user and pass
 
 
+<<<<<<< HEAD
 $user = "leet";
 $pass = "dummypass";
 
 
 $account = array("user" => "advbot",
 		"pass" => "smekeru");
+=======
+$account = array("user" => "username",
+		"pass" => "password");
+>>>>>>> df226007798aba370c6fc779f4922841a19d046b
 
 
 $userspm = array();
