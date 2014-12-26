@@ -4,9 +4,9 @@ include("chat.inc.php");
 include("custom.php");
 include("config.php");
 
-login($user, $pass);
+login($account['user'], $account['pass']);
 
-$raw = getraw($user);
+$raw = getraw($account['user']);
 
 if (banned($raw)) {
     die("banned");
@@ -15,7 +15,7 @@ if (banned($raw)) {
 $users = getusers($raw);
 $lastid = getlastid($raw);
 while (!banned($raw)) {
-    $raw = getraw($user, $lastid);
+    $raw = getraw($account['user'], $lastid);
     $users = getusers($raw);
     $a = getlastid($raw);
     if (!empty($a)) {

@@ -23,10 +23,12 @@ $privfnc = array("sh"=>"sh",
 				"_unban"=>"unban");
 # Configure chat user and pass
 
-$user = "leet";
-$pass = "dummypass";
+
+$account = array("user" => "advbot",
+		"pass" => "smekeru");
+
 
 $userspm = array();
-$banned = array($user);
+$banned = array($account['user']);
 $priv = false;
 ?>
