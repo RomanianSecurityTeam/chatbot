@@ -151,7 +151,7 @@ function encode($cli,$user) {
                                 $final = microtime(1) - $time;
                                 $c = number_format($final, 4);
 
-                        $output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("sha512", $string));
+                        $output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("sha512", $string);
 		break;
 
 	}
