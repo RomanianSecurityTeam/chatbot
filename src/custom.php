@@ -100,33 +100,70 @@ function b64_function($cli,$user) {
 	}
 
 
-function md5_encode($code)
-{
 
-    $time = microtime(1);
-    for ($i = 0; $i < 100000; $i++) {
-        hash('md5', $code);
-    }
-    $final = microtime(1) - $time;
-    $c = number_format($final, 4);
+function encode($cli,$user) {
 
-    return ("Result:(Encrypted in " . $c . " seconds) \n" . hash("md5", $code));
+	$cli = explode(" ",$cli,2);
+	$option = $cli[0];
+	$string = $cli[1];
 
+	switch($option) {
+		case "md5":
+			$time = microtime(1);
+				for ($i = 0; $i < 100000; $i++) {
+				hash("sha1", $string);}
+				$final = microtime(1) - $time;
+				$c = number_format($final, 4);
 
+			$output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("md5", $string);
+		break;
+		case "sha1":
+                        $time = microtime(1);
+                                for ($i = 0; $i < 100000; $i++) {
+                                hash("sha1", $string);}
+                                $final = microtime(1) - $time;
+                                $c = number_format($final, 4);
+
+                        $output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("sha1", $string);
+		break;
+		case "sha256":
+                        $time = microtime(1);
+                                for ($i = 0; $i < 100000; $i++) {
+                                hash("sha256", $string);}
+                                $final = microtime(1) - $time;
+                                $c = number_format($final, 4);
+
+                        $output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("sha256", $string);
+		break;
+		case "sha384":
+                        $time = microtime(1);
+                                for ($i = 0; $i < 100000; $i++) {
+                                hash("sha384", $string);}
+                                $final = microtime(1) - $time;
+                                $c = number_format($final, 4);
+
+                        $output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("sha384", $string);
+		break;
+		case "sha512":
+                        $time = microtime(1);
+                                for ($i = 0; $i < 100000; $i++) {
+                                hash("sha512", $string);}
+                                $final = microtime(1) - $time;
+                                $c = number_format($final, 4);
+
+                        $output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("sha512", $string));
+		break;
+
+	}
+	return $output;
 }
 
-function sha1_encode($code)
-{
 
-    $time = microtime(1);
-    for ($i = 0; $i < 100000; $i++) {
-        hash('sha1', $code);
-    }
-    $final = microtime(1) - $time;
-    $c = number_format($final, 4);
 
-    return ("Result:(Encrypted in " . $c . " seconds) \n" . hash("sha1", $code));
-}
+
+
+
+
 
 
 function short($url)

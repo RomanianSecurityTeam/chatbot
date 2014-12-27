@@ -1,25 +1,24 @@
 <?php
 $admin = array("em","shaggi","STiL");
 
-$pubfnc = array("whois" => "whois",
-				"ping"=>"ping", 
-				"ip"=>"ip", 
-				"host"=>"host", 
+$pubfnc = array("#whois" => "whois",
+				"#ping"=>"ping", 
+				"#ip"=>"ip", 
+				"#host"=>"host", 
 				"#b64"=>"b64_function", 
-				"md5_encode"=>"md5_encode", 
-				"sha1_encode"=>"sha1_encode", 
+				"#encode"=>"encode",
 				"short"=>"short", 
-				"passwd_generate" =>"passwd_generate", 
-				"_banned" =>"list_banned", 
-				"_pm"=>"pm");
+				"#passwd" =>"passwd_generate", 
+				"#banned" =>"list_banned", 
+				"#pm"=>"pm");
 				
 $chatevents = array("/login"=>"Clogin",
 				"/privmsg"=>"privmsg");
 				
 $privfnc = array("sh"=>"sh",
-				"msg"=>"msg", 
-				"_ban"=>"ban", 
-				"_unban"=>"unban");
+				"#msg"=>"msg", 
+				"#ban"=>"ban", 
+				"#unban"=>"unban");
 # Configure chat user and pass
 
 
