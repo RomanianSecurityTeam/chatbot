@@ -1,0 +1,9 @@
+- #ping <domain/ip> 
+- #b64 encode/decode <string> 
+- #encode md5/sha128/sha256/sha384/sha512 <string>
+- #short <url>
+- #passwd <1/2/3>
+- #ip <ip>
+- #banlist
+- #ban <user> [ADMIN ONLY]
+- #unban <user> [ADMIN ONLY]

@@ -4,12 +4,13 @@ $admin = array("em","shaggi","STiL");
 $pubfnc = array("#whois" => "whois",
 				"#ping"=>"ping", 
 				"#ip"=>"ip", 
+				"#help"=>"help",
 				"#host"=>"host", 
 				"#b64"=>"b64_function", 
 				"#encode"=>"encode",
 				"short"=>"short", 
 				"#passwd" =>"passwd_generate", 
-				"#banned" =>"list_banned", 
+				"#banlist" =>"list_banned", 
 				"#pm"=>"pm");
 				
 $chatevents = array("/login"=>"Clogin",

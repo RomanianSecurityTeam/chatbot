@@ -1,0 +1,3 @@
+Running on : Linux
+Developers : shaggi,STiL,em (random order)
+

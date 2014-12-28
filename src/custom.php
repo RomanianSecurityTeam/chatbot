@@ -14,7 +14,30 @@ function sprunge($cli)
 function sh($sh)
 {
     return ("Result : \n" . shell_exec($sh. " 2>&1"));
+
 }
+
+
+
+
+
+function about($cli,$user)
+{
+	global $admin;
+
+
+        foreach ($admin as $a => $admini) {
+
+        $list.= $a ." | ";
+        }
+
+
+
+	return ("Bot is running on : " . shell_exec('uname') . "Active developers : " . $list);
+
+
+}
+
 
 function whois($domain)
 {
@@ -78,6 +101,27 @@ function msg($cli)
 {
     message($cli);
 }
+
+function help($cli, $user)
+{
+	$cli = explode(" ",$cli,1);
+	$option = $cli[0];
+
+	switch($option) {
+		case "bot":
+			$output = file_get_contents("botinfo.txt", true);
+		break;
+		case "commands":
+			$output = file_get_contents("botcommands.txt", true);
+		break;
+	}
+	return "/msg $user \n $output";
+
+}
+
+
+
+
 
 function b64_function($cli,$user) {
  
@@ -151,7 +195,7 @@ function encode($cli,$user) {
                                 $final = microtime(1) - $time;
                                 $c = number_format($final, 4);
 
-                        $output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("sha512", $string));
+                        $output = "Result:(Encrypted in " . $c . " seconds) \n" . hash("sha512", $string);
 		break;
 
 	}

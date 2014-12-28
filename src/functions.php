@@ -56,7 +56,7 @@ function message($cli)
 {
     global $user,$priv;
     if (!empty($cli)) {
-        if (strlen($cli) > 200) {
+        if (strlen($cli) > 1500) {
             $cli = sprunge(urlencode($cli));
         }
         if($priv){$cli = "/msg $priv ".$cli;}
@@ -128,6 +128,8 @@ function list_banned($cli, $user)
 
     return "/msg $user banned users are: $txt";
 }
+
+
 
 function pm($cli, $user)
 {
