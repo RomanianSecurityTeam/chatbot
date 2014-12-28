@@ -8,15 +8,16 @@ $pubfnc = array("#whois" => "whois",
 				"#host"=>"host", 
 				"#b64"=>"b64_function", 
 				"#encode"=>"encode",
-				"short"=>"short", 
+				"#short"=>"short", 
 				"#passwd" =>"passwd_generate", 
 				"#banlist" =>"list_banned", 
-				"#pm"=>"pm");
+				"#pm"=>"pm",
+				"#weather"=>"weather");
 				
 $chatevents = array("/login"=>"Clogin",
 				"/privmsg"=>"privmsg");
 				
-$privfnc = array("sh"=>"sh",
+$privfnc = array("#sh"=>"sh",
 				"#msg"=>"msg", 
 				"#ban"=>"ban", 
 				"#unban"=>"unban");
@@ -24,7 +25,7 @@ $privfnc = array("sh"=>"sh",
 
 
 $user = "leet";
-$pass = "dummypass";
+$pass = "dummyleet";
 
 
 $userspm = array();

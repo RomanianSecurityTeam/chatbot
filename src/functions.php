@@ -56,7 +56,7 @@ function message($cli)
 {
     global $user,$priv;
     if (!empty($cli)) {
-        if (strlen($cli) > 1500) {
+        if (strlen($cli) > 255) {
             $cli = sprunge(urlencode($cli));
         }
         if($priv){$cli = "/msg $priv ".$cli;}
@@ -158,5 +158,18 @@ function Clogin($cli, $user)
         return "you have a new message, to see it, type _pm ";
     }
 }
+
+
+function get_string_between ($string, $start, $end)
+ {
+     $string = " ".$string;
+     $ini = strpos($string,$start);
+     if ($ini == 0) return "";
+     $ini += strlen($start);
+     $len = strpos($string,$end,$ini) - $ini;
+     return substr($string,$ini,$len);
+ }
+
+
 
 ?>

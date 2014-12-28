@@ -18,27 +18,6 @@ function sh($sh)
 }
 
 
-
-
-
-function about($cli,$user)
-{
-	global $admin;
-
-
-        foreach ($admin as $a => $admini) {
-
-        $list.= $a ." | ";
-        }
-
-
-
-	return ("Bot is running on : " . shell_exec('uname') . "Active developers : " . $list);
-
-
-}
-
-
 function whois($domain)
 {
     if ((preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $domain) && preg_match("/^.{1,253}$/", $domain) && preg_match("/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $domain))) {
@@ -58,7 +37,7 @@ function ip($ip)
 			if(!empty($line))
 			$ret.= $k." ".$line."\n";
 		}
-		
+
 	return $ret;
 }
 
@@ -120,7 +99,22 @@ function help($cli, $user)
 }
 
 
+function weather($oras) {
 
+    $url = "http://vremeainpulamea.sirb.net/?oras=" . urlencode($oras);
+    $html = file_get_contents($url);
+    if(preg_match("#Ai stricat pagina#", $html)) {
+        $output = "Locatia [b][color=green] " . $oras . "[/color][/b] este inexistenta.";
+                } else {
+        $locatie = get_string_between($html, "&raquo;", "</title>");
+        $locatie = str_replace(" ", "", $locatie);
+        $temperatura = get_string_between($html, "<h2>", "</h2>");
+        $temperatura = str_replace("??!!!", "", $temperatura);
+
+        $output = "Locatie : [b]" . $locatie . "[/b]. Temperatura : [b]" . $temperatura . "[/b]";
+                }
+    return $output;
+}
 
 
 function b64_function($cli,$user) {
@@ -139,9 +133,9 @@ function b64_function($cli,$user) {
 		default:
 			$outputs = "How to use :\n - #b64 encode <string> -> Encode the string given in Base64\n  - #b64 decode <string> -> Decode the string given from Base64";
 		break;
-	    }
-	    return $outputs;
 	}
+	return $outputs;
+}
 
 
 
