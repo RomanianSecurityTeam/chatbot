@@ -17,6 +17,7 @@ Available commands :
 - #short <url> - Shorten an url into : adf.ly
 - #passwd <1/2/3> - Generates a password based on length and strength (1 - low , 2 - medium , 3 - hard)
 - #ip <ip> - Return informations about ip (Note : currently supports only ip , no domains)
+- #weather <city/country> - Return informations about temperature in the location given
 - #banned - List users that aren't allowed to use chatbot
 - #ban <user> [ADMIN ONLY] - Ban a user from using the bot
 - #unban <user> [ADMIN ONLY] - Reverts the effect of #ban command
