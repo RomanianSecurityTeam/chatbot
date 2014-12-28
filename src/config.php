@@ -20,12 +20,13 @@ $chatevents = array("/login"=>"Clogin",
 $privfnc = array("#sh"=>"sh",
 				"#msg"=>"msg", 
 				"#ban"=>"ban", 
-				"#unban"=>"unban");
+				"#unban"=>"unban",
+				"#die"=>"killsw");
 # Configure chat user and pass
 
 
 $user = "leet";
-$pass = "dummyleet";
+$pass = "dummypass";
 
 
 $userspm = array();

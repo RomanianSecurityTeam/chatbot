@@ -7,3 +7,4 @@
 - #banlist
 - #ban <user> [ADMIN ONLY]
 - #unban <user> [ADMIN ONLY]
+- #die [ADMIN ONLY]

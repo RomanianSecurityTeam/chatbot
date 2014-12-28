@@ -83,6 +83,8 @@ function msg($cli)
 
 function help($cli, $user)
 {
+	global $priv;
+	$priv = $user;
 	$cli = explode(" ",$cli,1);
 	$option = $cli[0];
 
@@ -94,7 +96,7 @@ function help($cli, $user)
 			$output = file_get_contents("botcommands.txt", true);
 		break;
 	}
-	return "/msg $user \n $output";
+	return " \n$output";
 
 }
 
@@ -255,5 +257,9 @@ function privmsg($cli,$user)
 				$priv=false;
 
 	}
-
+function killsw()
+{
+	
+	exit();
+	}
 ?>
