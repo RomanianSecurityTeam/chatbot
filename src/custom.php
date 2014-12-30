@@ -21,12 +21,12 @@
  * |        + check if a $user is admin                  |
  * |                                                     |
  * | - message($text)                                    |
- * |        + post message on chat	                     |
+ * |        + post message on chat                       |
  * |        + you can send a private message by setting  |
- * |				global variable $priv to the username|
+ * |                global variable $priv to the username|
  * |                you want to send                     |
  * |                                                     |
- * | - ban($user)	                                     |
+ * | - ban($user)                                        |
  * | - unban($user)                                      |
  * |=====================================================|
  * */
