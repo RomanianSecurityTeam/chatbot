@@ -119,6 +119,33 @@ function weather($oras) {
 }
 
 
+
+function isup($url,$user) {
+
+/*
+    $process = urlencode($url);
+    $url = "http://isup.me/" . $process;
+    $html = file_get_contents($url);
+        $status = get_string_between($html, "</span>", "<p>");
+
+	return("Domain " . $process . " | Info: " . $status);
+
+*/
+
+
+
+    if ((preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $url) && preg_match("/^.{1,253}$/", $url) && preg_match("/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $url))) {
+        return ("/msg $user Domeniu: " . urlencode($url) . " | Status: " .shell_exec("python isup.py $url"));
+    } else {
+        return ("/msg $user Te rog introdu un domeniu valid.");
+    }
+
+}
+
+
+
+
+
 function b64_function($cli,$user) {
  
 	$cli = explode(" ",$cli,2);
@@ -256,10 +283,15 @@ function privmsg($cli,$user)
 				
 				$priv=false;
 
-	}
+}
+
+
 function killsw()
 {
-	
+
 	exit();
-	}
+}
+
+
+
 ?>

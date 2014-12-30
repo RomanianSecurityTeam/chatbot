@@ -12,7 +12,8 @@ $pubfnc = array("#whois" => "whois",
 				"#passwd" =>"passwd_generate", 
 				"#banlist" =>"list_banned", 
 				"#pm"=>"pm",
-				"#weather"=>"weather");
+				"#weather"=>"weather",
+				"#isup"=>"isup");
 				
 $chatevents = array("/login"=>"Clogin",
 				"/privmsg"=>"privmsg");
