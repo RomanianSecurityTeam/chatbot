@@ -123,9 +123,9 @@ function weather($oras)
     if (preg_match("#Ai stricat pagina#", $html)) {
         $output = "Locatia [b][color=green] " . $oras . "[/color][/b] este inexistenta.";
     } else {
-        $locatie     = get_string_between($html, "&raquo;", "</title>");
+        $locatie     = gb($html, "&raquo;", "</title>");
         $locatie     = str_replace(" ", "", $locatie);
-        $temperatura = get_string_between($html, "<h2>", "</h2>");
+        $temperatura = gb($html, "<h2>", "</h2>");
         $temperatura = str_replace("??!!!", "", $temperatura);
         
         $output = "Locatie : [b]" . $locatie . "[/b]. Temperatura : [b]" . $temperatura . "[/b]";
